@@ -40,9 +40,9 @@ public class Sentiment {
 			}
 		}
 		reviewScanner.close();
-		
+
 		System.out.println(word + " appears " + totalScore + " times.");
-		System.out.println("The average score for the reviews containing the word " + word + " is " + (totalScore / wordAppearance) + "\n\n");
+		System.out.println("The average score for the reviews containing the word " + word + " is " + (totalScore / wordAppearance) + "\n");
 		printMenu();
 	} 
 
@@ -61,22 +61,22 @@ public class Sentiment {
 			numberOfLines++;
 		}
 		reviewScanner.close();
-		
+
 		double averageScore = totalScore / numberOfLines;
-		
+
 		System.out.println("The average score of words in " + reviewFile + " is " + averageScore);
-		System.out.println("The overall sentiment of " + reviewFile + " is " + sentiment(averageScore) + "\n\n");
+		System.out.println("The overall sentiment of " + reviewFile + " is " + sentiment(averageScore) + "\n");
 		printMenu();
 	}
 
-	// Get the lowest and heighest scoring words (Requirement #4)
+	// Get the lowest and highest scoring words (Requirement #4)
 	private static void getLowestAndHighestWords() throws FileNotFoundException {
 		System.out.println("Enter the name of the file with the words you want to score: ");
 		File reviewFile = new File(keyboard.nextLine());
 		Scanner fileViewer = new Scanner(reviewFile);
 
-		double heighestScore = 0.0;
-		String heighestWord = "";
+		double highestScore = 0.0;
+		String highestWord = "";
 
 		double lowestScore = 4.0;
 		String lowestWord = "";
@@ -85,9 +85,9 @@ public class Sentiment {
 			Scanner nextWordScanner = new Scanner(fileViewer.nextLine());
 			while (nextWordScanner.hasNext()) {
 				String nextWord = nextWordScanner.next().toLowerCase();
-				if (getWordSentimentScore(nextWord) > heighestScore) {
-					heighestWord = nextWord;
-					heighestScore = getWordSentimentScore(nextWord);
+				if (getWordSentimentScore(nextWord) > highestScore) {
+					highestWord = nextWord;
+					highestScore = getWordSentimentScore(nextWord);
 				}
 				if (getWordSentimentScore(nextWord) < lowestScore) {
 					lowestWord = nextWord;
@@ -97,20 +97,20 @@ public class Sentiment {
 			nextWordScanner.close();
 		}
 		fileViewer.close();
-		System.out.println("The most positive word, with a score of " + heighestScore + " is " + heighestWord);
-		System.out.println("The most negative word, with a score of " + lowestScore + " is " + lowestWord + "\n\n");
+		System.out.println("The most positive word, with a score of " + highestScore + " is " + highestWord);
+		System.out.println("The most negative word, with a score of " + lowestScore + " is " + lowestWord + "\n");
 		printMenu();
 	}
 
 	// Export the positive and negative words into their own txt files (Requirement #5)
-	private static void exportLowestAndHeighestWords() throws FileNotFoundException {
+	private static void exportLowestAndHighestWords() throws FileNotFoundException {
 		System.out.println("Please select a source file to retrieve words from.");
 		File sourceFile = new File(keyboard.nextLine());
 		Scanner fileReader = new Scanner(sourceFile);
 		String goodWords = "";
 		String badWords = "";
 
-		
+
 		// Read the file and seperate the bad and good words.
 		while (fileReader.hasNextLine()) {
 			Scanner nextWordScanner = new Scanner(fileReader.nextLine());
@@ -125,7 +125,7 @@ public class Sentiment {
 		}
 		fileReader.close();
 
-		
+
 		// Create new txt files and write the good/bad words in them.
 		PrintWriter goodWordWriter = new PrintWriter("positive.txt");
 		String[] splitGoodWords = goodWords.split(",");
@@ -138,8 +138,8 @@ public class Sentiment {
 		for (int i = 0; i < splitBadWords.length; i++)
 			badWordWriter.println(splitBadWords[i]);
 		badWordWriter.close();
-		
-		System.out.print("Finished!\n\n");
+
+		System.out.print("Finished!\n");
 		printMenu();
 	}
 
@@ -168,7 +168,7 @@ public class Sentiment {
 				break;
 			}
 			else if (menuInput.equals("4")) {
-				exportLowestAndHeighestWords();
+				exportLowestAndHighestWords();
 				break;
 			}
 			else if (menuInput.equals("5")) {
