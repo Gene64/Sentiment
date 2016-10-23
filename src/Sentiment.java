@@ -57,8 +57,13 @@ public class Sentiment {
 
 		while (reviewScanner.hasNext()) {
 			String currentLine = reviewScanner.nextLine();
-			totalScore += getWordSentimentScore(currentLine.toLowerCase());
-			numberOfLines++;
+			double wordSentiment = getWordSentimentScore(currentLine.toLowerCase());
+			
+			// Neutral words do not effect the outcome of the sentiment.
+			if (wordSentiment != -2) {
+				totalScore += getWordSentimentScore(currentLine.toLowerCase());
+				numberOfLines++;
+			}
 		}
 		reviewScanner.close();
 
